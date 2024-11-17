@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 const isPublicRoute = createRouteMatcher([
   "/",
-  "/public",
+  "/profile",
   '/sign-in(.*)',
   '/sign-up(.*)',
   '/api/assistant/create',
@@ -16,7 +16,6 @@ const isPublicRoute = createRouteMatcher([
   '/manifest.json', // Ensure the manifest is treated as public
   '/images/icons/(.*)', // Ensure icon assets are public
 ]);
-
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
     await auth.protect();
