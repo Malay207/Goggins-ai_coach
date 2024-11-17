@@ -11,23 +11,26 @@ const isPublicRoute = createRouteMatcher([
   '/api/run/retrieve',
   '/api/challenge-user',
   '/api/openai',
-  '/manifest.json', // Ensure the manifest is treated as public
+  '/manifest.json',
   '/images/icons/(.*)', // Ensure icon assets are public
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
-    await auth.protect();
+    try {
+      await auth.protect(); // Will throw if user is not authenticated
+    } catch (error) {
+      // Handle the redirect to /sign-in manually
+      console.error(error);
+      return Response.redirect('/sign-in');
+    }
   }
 });
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
     '/(api|trpc)(.*)',
-    // Add matcher to always allow public static files like manifest
     '/manifest.json',
     '/images/icons/(.*)',
   ],
