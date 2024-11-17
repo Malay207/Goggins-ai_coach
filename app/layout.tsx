@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "GogginsAI-Coach: Unleash Your Potential with AI-Driven Coaching",
   keywords: "GogginsAI, AI-Driven Coaching, Personal Development, Self-Impro",
   manifest:"/manifest.json",
-  icons:{apple:"/images/icon-192x192.png"}
+  icons:{apple:"/images/icons/icon-192x192.png"}
 };
 
 export default function RootLayout({

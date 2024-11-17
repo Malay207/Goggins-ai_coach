@@ -1,13 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const withpwa = require("next-pwa")({
+import withPWA from "next-pwa";
+
+const withPWAConfig = withPWA({
   dest: "public",
   swSrc: "/public/custom-service-worker.js",
   register: true,
   skipWaiting: true,
   buildExcludes: [/middleware-manifest.json$/, /app-build-manifest.json$/],
-  disable: process.env.NODE_ENV !== "production"
-})
-const nextConfig = withpwa({
-  reactStrictMode: true
+  disable: process.env.NODE_ENV === "development",
 });
-module.exports = nextConfig;
+
+const nextConfig = withPWAConfig({
+  reactStrictMode: true,
+});
+
+export default nextConfig;
