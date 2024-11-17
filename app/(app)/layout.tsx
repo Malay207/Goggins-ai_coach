@@ -62,36 +62,15 @@ export default function AppLayout({
 
 
     }
-
-    // ..................................
-    // const threadid = localStorage.getItem("goggins_ai_thread_id");
-    // if (!threadid) {
-    //   async function threadid() {
-    //     try {
-    //       const response = await axios.post("/api/thread");
-    //       if (!response.data.success || !response.data.userthread) {
-    //         console.log(response.data.error);
-    //         setUserthread(null)
-    //         return;
-    //       }
-    //       setUserthread(response.data.userthread.id);
-    //       console.log(response.data.userthread.id);
-    //       localStorage.setItem("goggins_ai_thread_id", response.data.userthread.id);
-    //     } catch (error) {
-    //       console.error(error);
-    //       setUserthread(null)
-    //     }
-
-    //   }
-    //   threadid();
-    // }
-    // else {
-    //   setUserthread(threadid);
-    // }
     getuserthread();
     //..............................
   }, [setUserthread])
-
+  //save subscription
+  useEffect(() => {
+    if ("Notification" in window) {
+      // setNotificationModalvisible(Notification.permission === "default")
+    }
+  }, [])
   return (
     <div className="flex flex-col w-full h-full">
       <Navbar />
