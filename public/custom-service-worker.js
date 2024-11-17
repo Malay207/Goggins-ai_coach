@@ -7,8 +7,8 @@ self.addEventListener("push", function (event) {
   const title = data || "A new message!";
   const options = {
     body: data.body || "You have a new notification.",
-    icon: "/images/icon-192x192.png",
-    badge: "/images/icon-72x72.png",
+    icon: "/images/icons/icon-192x192.png",
+    badge: "/images/icons/icon-72x72.png",
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
