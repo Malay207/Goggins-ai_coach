@@ -1,4 +1,3 @@
-"use client"
 import { Challengepreferences } from '@/app/model/model';
 import Profilecontainer from '../../../components/Profilecontainer';
 import { currentUser } from '@clerk/nextjs/server'
