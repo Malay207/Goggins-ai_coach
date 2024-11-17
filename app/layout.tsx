@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "GogginsAI-coach",
   description: "GogginsAI-Coach: Unleash Your Potential with AI-Driven Coaching",
   keywords: "GogginsAI, AI-Driven Coaching, Personal Development, Self-Impro",
-  manifest:"/manifest.json",
+  manifest:"./manifest.json",
   icons:{apple:"/images/icons/icon-192x192.png"}
 };
 
