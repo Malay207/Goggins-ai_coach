@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const withPwa = require("next-pwa")({
   dest: "public",
-  swSrc: "/public/custom-service-worker.js",
+  // swSrc: "/public/custom-service-worker.js",
   register: true,
   skipWaiting: true,
   buildExcludes: [/middleware-manifest.json$/, /app-build-manifest.json$/],
