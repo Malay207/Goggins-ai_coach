@@ -1,6 +1,7 @@
 "use client"
 import { assistantatom, userthreadatom } from "@/atoms";
 import Navbar from "@/components/Navbar";
+import useServiceWorker from "@/hooks/useServiceWorker";
 import axios from "axios";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
@@ -15,6 +16,9 @@ export default function AppLayout({
 ) {
   const [, setUserthread] = useAtom(userthreadatom)
   const [Assistant, setAssistant] = useAtom(assistantatom);
+
+  useServiceWorker();
+
   useEffect(() => {
     if (Assistant) return;
     setAssistant(process.env.NEXT_PUBLIC_GOGGINS_ASSISTANT_ID)
