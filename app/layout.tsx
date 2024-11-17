@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   title: "GogginsAI-coach",
   description: "GogginsAI-Coach: Unleash Your Potential with AI-Driven Coaching",
   keywords: "GogginsAI, AI-Driven Coaching, Personal Development, Self-Impro",
-  manifest:"/manifest.json",
-  icons:{apple:"/images/icons/icon-192x192.png"}
+  manifest: "/manifest.json",
+  icons: { apple: "/images/icons/icon-192x192.png" }
 };
 
 export default function RootLayout({
@@ -29,13 +29,17 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider dynamic>
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+      <html lang="en">
+        <head>
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="icon" href="/images/icons/icon-192x192.png" />
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
