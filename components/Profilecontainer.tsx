@@ -5,6 +5,7 @@ import { Switch } from './ui/switch';
 import Dificultycard from './Dificultycard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useAuth } from '@clerk/nextjs';
 
 const difficulties = [
   {
@@ -37,6 +38,14 @@ interface profilecontainerprops {
 }
 type difficultylevel = "EASY" | "MEDIUM" | "HARD";
 const Profilecontainer = ({ plainChallengePreference }: profilecontainerprops) => {
+  const { isSignedIn, userId } = useAuth();
+  if (!isSignedIn) {
+    console.log("You are not signed in")
+  }
+  else {
+    console.log("User details", userId)
+  }
+
   const [saving, setsaving] = useState(false)
   const [Sendnotification, setSendnotification] = useState(plainChallengePreference.pushnotifications);
   const [Selectdificulties, setSelectdificulties] = useState(plainChallengePreference.ChallengeId);
