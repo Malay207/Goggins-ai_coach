@@ -29,6 +29,7 @@ function Navbar() {
           <Link
             key={idx}
             href={route.path}
+            passHref
             className={
               pathname === route.path ? "border-b-2 border-yellow-500" : ""
             }
