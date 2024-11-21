@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "/fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "/fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "GogginsAI-coach",
   description: "GogginsAI-Coach: Unleash Your Potential with AI-Driven Coaching",
   keywords: "GogginsAI, AI-Driven Coaching, Personal Development, Self-Impro",
-  manifest:"./manifest.json",
+  manifest:"/manifest.json",
   icons:{apple:"/images/icons/icon-192x192.png"}
 };
 
@@ -31,7 +31,7 @@ export default function RootLayout({
     <ClerkProvider dynamic>
     <html lang="en">
       <head>
-      <link
+      {/* <link
             rel="preload"
             href="/fonts/GeistVF.woff"
             as="font"
@@ -44,10 +44,10 @@ export default function RootLayout({
             as="font"
             type="font/woff"
             crossOrigin="anonymous"
-          />
+          /> */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` antialiased`}
       >
         {children}
       </body>
