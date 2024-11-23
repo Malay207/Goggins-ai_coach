@@ -9,7 +9,7 @@ const ProfilePage = async () => {
   if (!userId) {
     throw new Error("no User found");
   }
-  let challengepreference = await Challengepreferences.findOne({ UserId: userId});
+  let challengepreference = await Challengepreferences.findOne({ UserId: userId });
   if (!challengepreference) {
     challengepreference = new Challengepreferences({
       UserId: userId,
