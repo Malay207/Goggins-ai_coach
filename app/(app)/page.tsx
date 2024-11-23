@@ -4,7 +4,6 @@ import { assistantatom, userthreadatom } from '@/atoms'
 import axios from 'axios'
 import { useAtom } from 'jotai'
 import { Run } from 'openai/resources/beta/threads/index.mjs'
-import { } from 'openai/resources/beta/threads/messages.mjs'
 import { Message } from 'openai/src/resources/beta/threads/messages.js'
 
 import React, { useState, useEffect, useCallback } from 'react'
