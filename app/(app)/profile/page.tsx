@@ -1,18 +1,18 @@
 import { Challengepreferences } from '@/app/model/model';
 import Profilecontainer from '../../../components/Profilecontainer';
-import { currentUser } from '@clerk/nextjs/server'
+import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 
 const ProfilePage = async () => {
   //get the user
-  const user = await currentUser();
-  if (!user) {
+  const {userId} = await auth();
+  if (!userId) {
     throw new Error("no User found");
   }
-  let challengepreference = await Challengepreferences.findOne({ UserId: user.id });
+  let challengepreference = await Challengepreferences.findOne({ UserId: userId});
   if (!challengepreference) {
     challengepreference = new Challengepreferences({
-      UserId: user.id,
+      UserId: userId,
       ChallengeId: "EASY",
     });
     await challengepreference.save();

@@ -9,21 +9,14 @@ const isPublicRoute = createRouteMatcher([
   '/api/message/list',
   '/api/run/create',
   '/api/run/retrieve',
+  '/api/challenge-preference',
   '/api/challenge-user',
   '/api/openai',
   '/manifest.json', // Ensure the manifest is treated as public
   '/images/icons/(.*)', // Ensure icon assets are public
 ]);
 export  default  clerkMiddleware(async (auth, request) => {
-  
-  // if (!isPublicRoute(request) && request.nextUrl.pathname === '/') {
-  //   if ((await auth()).userId) {
-  //     return new Response(null, {
-  //       status: 307,
-  //       headers: { Location: '/profile' },
-  //     });
-  //   }
-  // }
+ 
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
