@@ -9,7 +9,6 @@ const isPublicRoute = createRouteMatcher([
   '/api/message/list',
   '/api/run/create',
   '/api/run/retrieve',
-  '/api/challenge-preference',
   '/api/challenge-user',
   '/api/openai',
   '/manifest.json', // Ensure the manifest is treated as public
