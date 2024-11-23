@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react'
-import { Button } from './ui/button';
+// import { Button } from './ui/button';
 import { Switch } from './ui/switch';
 import Dificultycard from './Dificultycard';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+// import axios from 'axios';
+// import toast from 'react-hot-toast';
 import { useAuth } from '@clerk/nextjs';
 
 const difficulties = [
@@ -46,7 +46,7 @@ const Profilecontainer = ({ plainChallengePreference }: profilecontainerprops) =
     console.log("User details", userId)
   }
 
-  const [saving, setsaving] = useState(false)
+  // const [saving, setsaving] = useState(false)
   const [Sendnotification, setSendnotification] = useState(plainChallengePreference.pushnotifications);
   const [Selectdificulties, setSelectdificulties] = useState(plainChallengePreference.ChallengeId);
 
@@ -57,38 +57,38 @@ const Profilecontainer = ({ plainChallengePreference }: profilecontainerprops) =
     setSelectdificulties(difficultyId);
     // update user preference with selected difficulty
   }
-  const handlesave = async () => {
-    setsaving(true);
-    try {
-      const response = await axios.post<{
-        success: boolean,
-        message?: string,
-        data?: challengepreference
+  // const handlesave = async () => {
+  //   setsaving(true);
+  //   try {
+  //     const response = await axios.post<{
+  //       success: boolean,
+  //       message?: string,
+  //       data?: challengepreference
 
-      }>("/api/challenge-preference", {
-        _Id: plainChallengePreference.id,
-        ChallengeId: Selectdificulties,
-        pushnotifications: Sendnotification,
-      });
-      if (!response.data.success || !response.data.data) {
-        toast.error(response.data.message ?? "Something went wrong")
-        return;
-      }
-      toast.success("Challenge preference updated successfully");
+  //     }>("/api/challenge-preference", {
+  //       _Id: plainChallengePreference.id,
+  //       ChallengeId: Selectdificulties,
+  //       pushnotifications: Sendnotification,
+  //     });
+  //     if (!response.data.success || !response.data.data) {
+  //       toast.error(response.data.message ?? "Something went wrong")
+  //       return;
+  //     }
+  //     toast.success("Challenge preference updated successfully");
 
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong.Please try again")
-    }
-    finally {
-      setsaving(false);
-    }
-  }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Something went wrong.Please try again")
+  //   }
+  //   finally {
+  //     setsaving(false);
+  //   }
+  // }
   return (
     <div className='flex flex-col'>
       <div className='flex flex-row justify-between items-center mb-4'>
         <h1 className='font-bold text-2xl'>Challenge Level</h1>
-        <Button onClick={handlesave}>{saving ? "saving..." : "Save"}</Button>
+        {/* <Button onClick={handlesave}>{saving ? "saving..." : "Save"}</Button> */}
       </div>
       {/* push notification */}
       <div className='flex flex-row items-center justify-between mb-4 p-4 shadow rounded-lg'>
