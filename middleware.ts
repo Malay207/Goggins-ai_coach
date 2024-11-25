@@ -10,12 +10,13 @@ const isPublicRoute = createRouteMatcher([
   '/api/run/create',
   '/api/run/retrieve',
   '/api/challenge-user',
+  '/api/send-notifications',
   '/api/openai',
   '/manifest.json', // Ensure the manifest is treated as public
   '/images/icons/(.*)', // Ensure icon assets are public
 ]);
-export  default  clerkMiddleware(async (auth, request) => {
- 
+export default clerkMiddleware(async (auth, request) => {
+
   if (!isPublicRoute(request)) {
     await auth.protect();
   }

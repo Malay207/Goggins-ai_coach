@@ -12,8 +12,6 @@ export async function GET() {
     return NextResponse.json({ success: false, message: "Unothorised user" }, { status: 401 });
   }
   try {
-    
-  
   await database_connect();
   //get user thread fro database
   const user_thread = await User.findOne({ UserId: current_user.id });

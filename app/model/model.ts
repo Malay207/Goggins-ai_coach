@@ -34,11 +34,6 @@ const Challengepreferencess = new mongoose.Schema({
 })
 const userMetaSchema = new mongoose.Schema(
     {
-        id: {
-            type: String,
-            default: () => new mongoose.Types.ObjectId(), // Equivalent to Prisma's uuid()
-            immutable: true, // Ensures id cannot be modified after creation
-        },
         userId: {
             type: String,
             unique: true, // Ensures no duplicate userId

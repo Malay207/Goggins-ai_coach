@@ -1,4 +1,4 @@
-import { User, Challengepreferences } from "@/app/model/model";
+import { User, Challengepreferences, UserMeta } from "@/app/model/model";
 import axios from "axios";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
@@ -8,14 +8,22 @@ interface UserThreadType {
     UserId: string,
     date: string
 }
+interface UserMetaType {
+    endpoint: string,
+    userId: string,
+    p256dh: string,
+    auth: string,
+    date: string
+}
 
 interface UserThreadMap {
     [userId: string]: UserThreadType;
 }
 
-// interface UserMetaMap {
-//     [userId: string]: UserMeta;
-// }
+
+interface UserMetaMap {
+    [userId: string]: UserMetaType;
+}
 
 export async function POST(request: Request) {
     // Validation
@@ -103,13 +111,9 @@ export async function POST(request: Request) {
     // console.log("userThreads", userThreads);
 
     // Grab all user metadata
-    // const userMetas = await prismadb.userMeta.findMany({
-    //     where: {
-    //         userId: {
-    //             in: userIds,
-    //         },
-    //     },
-    // });
+    const userMetas = await UserMeta.find({
+        userId: { $in: userIds },
+    });
 
     // console.log("userMetas", userMetas);
 
@@ -118,10 +122,10 @@ export async function POST(request: Request) {
         return map;
     }, {} as UserThreadMap);
 
-    // const userMetaMap = userMetas.reduce((map, meta) => {
-    //     map[meta.userId] = meta;
-    //     return map;
-    // }, {} as UserMetaMap);
+    const userMetaMap = userMetas.reduce((map, meta) => {
+        map[meta.userId] = meta;
+        return map;
+    }, {} as UserMetaMap);
 
     // Add messages to threads
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -144,24 +148,24 @@ export async function POST(request: Request) {
                 );
 
                 // Send Notification
-                // if (cp.sendNotifications) {
-                //     const correspondingUserMeta = userMetaMap[cp.userId];
-                //     threadAndNotificationsPromises.push(
-                //         axios.post(
-                //             `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-notifications`,
-                //             {
-                //                 subscription: {
-                //                     endpoint: correspondingUserMeta.endpoint,
-                //                     keys: {
-                //                         auth: correspondingUserMeta.auth,
-                //                         p256dh: correspondingUserMeta.p256dh,
-                //                     },
-                //                 },
-                //                 message,
-                //             }
-                //         )
-                //     );
-                // }
+                if (cp.sendNotifications) {
+                    const correspondingUserMeta = userMetaMap[cp.userId];
+                    threadAndNotificationsPromises.push(
+                        axios.post(
+                            `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-notifications`,
+                            {
+                                subscription: {
+                                    endpoint: correspondingUserMeta.endpoint,
+                                    keys: {
+                                        auth: correspondingUserMeta.auth,
+                                        p256dh: correspondingUserMeta.p256dh,
+                                    },
+                                },
+                                message,
+                            }
+                        )
+                    );
+                }
             }
         });
 
