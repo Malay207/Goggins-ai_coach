@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
-const openai = new OpenAI();
+const ai = new GoogleGenAI({});
 
 export async function POST(request: Request) {
   const { messages, secret } = await request.json();
@@ -25,12 +25,12 @@ export async function POST(request: Request) {
   }
 
   try {
-    const completion = await openai.chat.completions.create({
-      messages,
-      model: "gpt-4-0613",
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: messages,
     });
 
-    const newMessage = completion.choices[0].message.content;
+    const newMessage = response.text ?? "";
 
     return NextResponse.json(
       { success: true, message: newMessage },

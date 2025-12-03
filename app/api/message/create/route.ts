@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { Message } from "@/app/model/model";
 
 export async function POST(req: Request) {
-    const { message, threadId, fromUser = "false" } = await req.json();
+  const { message, threadId, fromUser = "false" } = await req.json();
 
   console.log("from user", { message, threadId });
 
@@ -13,21 +13,15 @@ export async function POST(req: Request) {
     );
   }
 
-  const openai = new OpenAI();
-
   try {
-    const threadMessage = await openai.beta.threads.messages.create(threadId, {
-      role: "user",
+    const newMessage = await Message.create({
+      threadId,
+      role: fromUser === "true" ? "user" : "assistant",
       content: message,
-      metadata: {
-        fromUser,
-      },
     });
 
-    console.log("from openai", threadMessage);
-
     return NextResponse.json(
-      { message: threadMessage, success: true },
+      { message: newMessage, success: true },
       { status: 201 }
     );
   } catch (error) {

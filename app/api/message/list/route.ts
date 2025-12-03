@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { Message } from "@/app/model/model";
 
 export async function POST(req: Request) {
   const { threadId } = await req.json();
@@ -11,15 +11,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const openai = new OpenAI();
-
   try {
-    const response = await openai.beta.threads.messages.list(threadId);
-
-    console.log("from openai messages", response.data);
+    const messages = await Message.find({ threadId })
+      .sort({ date: 1 })
+      .lean();
 
     return NextResponse.json(
-      { messages: response.data, success: true },
+      { messages, success: true },
       { status: 200 }
     );
   } catch (error) {
